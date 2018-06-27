@@ -32,7 +32,7 @@ class SmallConfig1(SmallDataset):
     lr = 0.001
     pretrained = None
     use_topics = False
-    experiment_name = "lr-0.001"
+    experiment_name = "sm-lr-0.001"
 
 class SmallConfig2(SmallDataset):
     emsize = 512
@@ -40,7 +40,7 @@ class SmallConfig2(SmallDataset):
     lr = 0.0005
     pretrained = None
     use_topics = False
-    experiment_name = "lr-0.0005"
+    experiment_name = "sm-lr-0.0005"
 
 class SmallConfig3(SmallDataset):
     emsize = 512
@@ -48,7 +48,7 @@ class SmallConfig3(SmallDataset):
     lr = 0.00025
     pretrained = None
     use_topics = False
-    experiment_name = "lr-0.00025"
+    experiment_name = "sm-lr-0.00025"
 
 class SmallConfig4(SmallDataset):
     emsize = 512
@@ -56,7 +56,7 @@ class SmallConfig4(SmallDataset):
     lr = 0.0001
     pretrained = None
     use_topics = False
-    experiment_name = "lr-0.0001"
+    experiment_name = "sm-lr-0.0001"
 
 class SmallConfig5(SmallDataset):
     emsize = 512
@@ -64,7 +64,7 @@ class SmallConfig5(SmallDataset):
     lr = 0.0000625
     pretrained = None
     use_topics = False
-    experiment_name = "lr-0.0000625"
+    experiment_name = "sm-lr-0.0000625"
 
 """ Pretrained Word Embeddings Ablation Experiments """
 class SmallConfig6(SmallDataset):
@@ -73,7 +73,7 @@ class SmallConfig6(SmallDataset):
     lr = 0.0001
     pretrained = 'embeddings/complete-512.vec'
     use_topics = False
-    experiment_name = "lr-0.0001-WE-512"
+    experiment_name = "sm-lr-0.0001-WE-512"
 
 class SmallConfig7(SmallDataset):
     emsize = 300
@@ -81,7 +81,7 @@ class SmallConfig7(SmallDataset):
     lr = 0.0001
     pretrained = 'embeddings/complete.vec'
     use_topics = False
-    experiment_name = "lr-0.0001-WE-300"
+    experiment_name = "sm-lr-0.0001-WE-300"
 
 """ Learning Rate Ablation Experiments """
 class LargeConfig1(LargeDataset):
@@ -90,7 +90,7 @@ class LargeConfig1(LargeDataset):
     lr = 0.001
     pretrained = None
     use_topics = False
-    experiment_name = "lr-0.001"
+    experiment_name = "lg-lr-0.001"
 
 class LargeConfig2(LargeDataset):
     emsize = 512
@@ -98,7 +98,7 @@ class LargeConfig2(LargeDataset):
     lr = 0.0005
     pretrained = None
     use_topics = False
-    experiment_name = "lr-0.0005"
+    experiment_name = "lg-0.0005"
 
 class LargeConfig3(LargeDataset):
     emsize = 512
@@ -106,7 +106,7 @@ class LargeConfig3(LargeDataset):
     lr = 0.00025
     pretrained = None
     use_topics = False
-    experiment_name = "lr-0.00025"
+    experiment_name = "lg-lr-0.00025"
 
 class LargeConfig4(LargeDataset):
     emsize = 512
@@ -114,7 +114,7 @@ class LargeConfig4(LargeDataset):
     lr = 0.0001
     pretrained = None
     use_topics = False
-    experiment_name = "lr-0.0001"
+    experiment_name = "lg-lr-0.0001"
 
 class LargeConfig5(LargeDataset):
     emsize = 512
@@ -122,7 +122,7 @@ class LargeConfig5(LargeDataset):
     lr = 0.0000625
     pretrained = None
     use_topics = False
-    experiment_name = "lr-0.0000625"
+    experiment_name = "lg-lr-0.0000625"
 
 """ Pretrained Word Embeddings Ablation Experiments """
 class LargeConfig6(LargeDataset):
@@ -131,7 +131,7 @@ class LargeConfig6(LargeDataset):
     lr = 0.0001
     pretrained = 'embeddings/complete-512.vec'
     use_topics = False
-    experiment_name = "lr-0.0001-WE-512"
+    experiment_name = "lg-lr-0.0001-WE-512"
 
 class LargeConfig7(LargeDataset):
     emsize = 300
@@ -139,7 +139,7 @@ class LargeConfig7(LargeDataset):
     lr = 0.0001
     pretrained = 'embeddings/complete.vec'
     use_topics = False
-    experiment_name = "lr-0.0001-WE-300"
+    experiment_name = "lg-lr-0.0001-WE-300"
 
 configuration = {"s1": SmallConfig1(),
                  "s2": SmallConfig2(),

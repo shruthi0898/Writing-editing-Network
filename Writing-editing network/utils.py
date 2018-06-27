@@ -129,7 +129,6 @@ class headline2abstractdataset(Dataset):
         org_length = len(vector)
         padding = maxlen - org_length
         vector.extend([pad_value] * padding)
-        vector.append(org_length)
         return vector
 
     def _initalcorpus(self):
@@ -151,7 +150,7 @@ class headline2abstractdataset(Dataset):
         old.sort(key = lambda x: len(x[0]), reverse = True)
         corpus = []
         for source, target, vectorized_topics in old:
-            vectorized_topics = self.pad_sentence_vector(vectorized_topics, self.max_context_length, pad_value=self.context_vectorizer['<unk>'])
+            vectorized_topics = self.pad_sentence_vector(vectorized_topics, self.max_context_length, pad_value=self.context_vectorizer['algorithm'])
             team = [len(source), len(target), self.pad_sentence_vector(source, self.head_len), self.pad_sentence_vector(target, self.abs_len), vectorized_topics]
             corpus.append(team)
         self.data = corpus
@@ -187,7 +186,7 @@ class headline2abstractdataset(Dataset):
                             vectorized_topics.append(self.context_vectorizer[t])
                         self.max_context_length = max(self.max_context_length, len(vectorized_topics))
                     topics_v.append(vectorized_topics)
-        self.context_vectorizer['<unk>'] = len(self.context_vectorizer)
+        self.context_vectorizer['algorithm'] = len(self.context_vectorizer)
         return corpus, topics_v
 
     def _tokenize_word(self, sentence):
