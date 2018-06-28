@@ -181,8 +181,8 @@ def train_epoches(dataset, model, n_epochs, teacher_forcing_ratio):
                     flush=True)
 
         validation_loss = evaluate(validation_abstracts, model, teacher_forcing_ratio)
-
-        plot_topical_encoding(abstracts.context_vectorizer, model.context_encoder.embedding, writer, epoch)
+        if config.use_topics:
+            plot_topical_encoding(abstracts.context_vectorizer, model.context_encoder.embedding, writer, epoch)
         for i in range(config.num_exams):
             training_loss_list[i] /= float(epoch_examples_total)
             writer.add_scalar('loss/train/train_loss_abstract_'+str(i), training_loss_list[i], epoch)
