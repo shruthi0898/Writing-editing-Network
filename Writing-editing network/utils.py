@@ -52,6 +52,10 @@ class Vectorizer:
         self.maxlen = maxlen
         self.context_vectorizer = {}
 
+    def topics_to_index_tensor(self, topics):
+        vec = [self.context_vectorizer[t] if t in self.context_vectorizer else self.context_vectorizer["algorithm"] for t in topics]
+        return vec
+
     def _find_max_sentence_length(self, corpus, template):
         if not template:
             self.maxlen = max(len(sent) for document in corpus for sent in document)

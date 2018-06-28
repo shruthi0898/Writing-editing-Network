@@ -44,6 +44,8 @@ class Predictor(object):
             topics = torch.LongTensor(topics)
             if is_cuda_available:
                 topics = topics.cuda()
+        else:
+            topics = None
 
         input_variable = torch.LongTensor(text).view(1, -1)
         if is_cuda_available:
@@ -55,7 +57,7 @@ class Predictor(object):
         outputs = []
         for i in range(num_exams):
             _, _, other = \
-                self.model(input_variable, prev_generated_seq, input_lengths, topics)
+                self.model(input_variable, prev_generated_seq, input_lengths, topics=topics)
             length = other['length'][0]
 
             tgt_id_seq = [other['sequence'][di][0].item() for di in range(length)]

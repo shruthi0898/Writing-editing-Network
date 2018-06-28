@@ -226,6 +226,7 @@ if __name__ == "__main__":
             seq = seq_str.strip().split(' ')
             num_exams = int(input("Type the number of drafts:\n"))
             print("\nresult:")
+            topics = vectorizer.topics_to_index_tensor(topics)
             outputs = predictor.predict(seq, num_exams, topics=topics)
             for i in range(num_exams):
                 print(i)
