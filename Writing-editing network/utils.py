@@ -50,6 +50,7 @@ class Vectorizer:
         self.min_frequency = min_frequency
         self.start_end_tokens = start_end_tokens
         self.maxlen = maxlen
+        self.context_vectorizer = {}
 
     def _find_max_sentence_length(self, corpus, template):
         if not template:
@@ -125,10 +126,9 @@ class headline2abstractdataset(Dataset):
         self.head_len = 0
         self.abs_len = 0
         self.max_len = max_len
-        self.max_context_length = -1
-        self.context_vectorizer = {}
-        self.corpus, self.topics_corpus = self._read_corpus(path)
+        self.max_context_length = 1
         self.vectorizer = vectorizer
+        self.corpus, self.topics_corpus = self._read_corpus(path)
         self.data = self._vectorize_corpus()
         self._initalcorpus()
         self.USE_CUDA = USE_CUDA
@@ -158,7 +158,7 @@ class headline2abstractdataset(Dataset):
         old.sort(key = lambda x: len(x[0]), reverse = True)
         corpus = []
         for source, target, vectorized_topics in old:
-            vectorized_topics = self.pad_sentence_vector(vectorized_topics, self.max_context_length, pad_value=self.context_vectorizer['algorithm'])
+            vectorized_topics = self.pad_sentence_vector(vectorized_topics, self.max_context_length, pad_value=self.vectorizer.context_vectorizer['algorithm'])
             team = [len(source), len(target), self.pad_sentence_vector(source, self.head_len), self.pad_sentence_vector(target, self.abs_len), vectorized_topics]
             corpus.append(team)
         self.data = corpus
@@ -178,6 +178,7 @@ class headline2abstractdataset(Dataset):
                 i += 1
         corpus = []
         topics_v = []
+        self.vectorizer.context_vectorizer['algorithm'] = len(self.vectorizer.context_vectorizer)
         for i in range(len(abstracts)):
             if len(headlines[i]) > 0 and len(abstracts[i]) > 0:
                 h_a_pair = []
@@ -189,12 +190,11 @@ class headline2abstractdataset(Dataset):
                     if topics:
                         for t in topics[i]:
                             t = t.lower()
-                            if t not in self.context_vectorizer:
-                                self.context_vectorizer[t] = len(self.context_vectorizer)
-                            vectorized_topics.append(self.context_vectorizer[t])
+                            if t not in self.vectorizer.context_vectorizer:
+                                self.vectorizer.context_vectorizer[t] = len(self.vectorizer.context_vectorizer)
+                            vectorized_topics.append(self.vectorizer.context_vectorizer[t])
                         self.max_context_length = max(self.max_context_length, len(vectorized_topics))
                     topics_v.append(vectorized_topics)
-        self.context_vectorizer['algorithm'] = len(self.context_vectorizer)
         return corpus, topics_v
 
     def _tokenize_word(self, sentence):

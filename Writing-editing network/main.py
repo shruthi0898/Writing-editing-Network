@@ -57,7 +57,7 @@ embedding = nn.Embedding(vocab_size, config.emsize, padding_idx=0)
 if config.pretrained:
     embedding = load_embeddings(embedding, abstracts.vectorizer.word2idx, config.pretrained, config.emsize)
 
-context_encoder = ContextEncoder(config.context_dim, len(abstracts.context_vectorizer), config.emsize) if config.use_topics else None
+context_encoder = ContextEncoder(config.context_dim, len(vectorizer.context_vectorizer), config.emsize) if config.use_topics else None
 
 encoder_title = EncoderRNN(vocab_size, embedding, abstracts.head_len, config.emsize, input_dropout_p=config.dropout,
                      n_layers=config.nlayers, bidirectional=config.bidirectional, rnn_cell=config.cell)
@@ -182,7 +182,7 @@ def train_epoches(dataset, model, n_epochs, teacher_forcing_ratio):
 
         validation_loss = evaluate(validation_abstracts, model, teacher_forcing_ratio)
         if config.use_topics:
-            plot_topical_encoding(abstracts.context_vectorizer, model.context_encoder.embedding, writer, epoch)
+            plot_topical_encoding(vectorizer.context_vectorizer, model.context_encoder.embedding, writer, epoch)
         for i in range(config.num_exams):
             training_loss_list[i] /= float(epoch_examples_total)
             writer.add_scalar('loss/train/train_loss_abstract_'+str(i), training_loss_list[i], epoch)
