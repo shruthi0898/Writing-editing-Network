@@ -57,7 +57,7 @@ embedding = nn.Embedding(vocab_size, config.emsize, padding_idx=0)
 if config.pretrained:
     embedding = load_embeddings(embedding, abstracts.vectorizer.word2idx, config.pretrained, config.emsize)
 
-context_encoder = ContextEncoder(config.context_dim, len(abstracts.context_vectorizer), config.emsize)
+context_encoder = ContextEncoder(config.context_dim, len(abstracts.context_vectorizer), config.emsize) if config.use_topics else None
 
 encoder_title = EncoderRNN(vocab_size, embedding, abstracts.head_len, config.emsize, input_dropout_p=config.dropout,
                      n_layers=config.nlayers, bidirectional=config.bidirectional, rnn_cell=config.cell)

@@ -35,7 +35,7 @@ def plot_topical_encoding(topic_dictionary, topical_embeddings, tensorboardX_wri
     for t, index in topic_dictionary.items():
         topics.append(t)
         embeddings.append(topical_embeddings(torch.tensor([index], dtype=torch.long).cuda()))
-        tensorboardX_writer.add_embedding(torch.squeeze(torch.stack(embeddings)), topics, global_step=step)
+    tensorboardX_writer.add_embedding(torch.squeeze(torch.stack(embeddings)), topics, global_step=step)
 
 #Transforms a Corpus into lists of word indices.
 class Vectorizer:
